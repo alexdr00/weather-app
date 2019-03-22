@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 import { Tooltip, Grid } from '@material-ui/core';
-import Detail from './Detail';
-import { BeachAccess, FlashOn } from '@material-ui/icons';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import minutelyTooltip from './tooltips/minutelyTooltip';
+import largeRangeTooltip from './tooltips/largeRangeTooltip';
+import cn from 'classnames';
 
 
 const styles = {
@@ -18,6 +19,10 @@ const styles = {
     cursor: 'pointer'
   },
 
+  largeFilling: {
+    minWidth: '14.28571%',
+  },
+
   minute: {
     position: 'absolute',
     left: '50%',
@@ -29,7 +34,8 @@ const styles = {
 
   tooltip: {
     width: 300,
-    height: 200,
+    height: 400,
+    lineHeight: '1.6rem',
     backgroundColor: '#fff',
     color: '#000',
     border: '1px solid #dadde9',
@@ -43,26 +49,6 @@ const styles = {
 class Filling extends Component {
   state = { showTooltip: false };
 
-  insideTooltip = (classes) => {
-    return (
-      <Grid container alignItems="center" justify="center" className={classes.tooltip}>
-        <Grid item>
-          <Detail
-            detailTitle="Precipitation Probability"
-            detailValue="value"
-            icon={BeachAccess}
-          />
-
-          <Detail
-            detailTitle="Precipitation Intensity"
-            detailValue="value"
-            icon={FlashOn}
-          />
-        </Grid>
-      </Grid>
-    );
-  };
-
   handleClick = () => {
     this.setState({ showTooltip: true })
   };
@@ -71,20 +57,34 @@ class Filling extends Component {
     this.setState({ showTooltip: false })
   };
 
+  renderProperTooltip = (range) => {
+    if (range === 'minutely') {
+      return minutelyTooltip;
+    }
+
+    return largeRangeTooltip;
+  };
+
   render() {
-    const { classes, minute } = this.props;
+    const { classes, index, data, summary, range } = this.props;
     const { showTooltip } = this.state;
+
+    const tooltip = this.renderProperTooltip(range);
+    const isRangeLarge = range === 'daily';
 
     return (
       <ClickAwayListener onClickAway={this.handleClose}>
         <Tooltip
-          title={this.insideTooltip(classes)}
+          title={tooltip(classes, data, summary)}
           placement="top"
           open={showTooltip}
           onClose={this.handleClose}
         >
-          <div className={classes.filling} onClick={this.handleClick}>
-            <span className={classes.minute}>{minute}</span>
+          <div
+            className={cn(classes.filling, { [classes.largeFilling]: isRangeLarge })}
+            onClick={this.handleClick}
+          >
+            <span className={classes.minute}>{index}</span>
           </div>
         </Tooltip>
       </ClickAwayListener>

@@ -28,9 +28,8 @@ class Home extends Component {
   renderInfoSection = () => {
     const { weatherData } = this.state;
 
-    // Object.keys(weatherData).length !== 0
-    if (true) {
-      return <InfoSection />
+    if (Object.keys(weatherData).length !== 0) {
+      return <InfoSection weatherData={weatherData} />
     }
   };
 

@@ -3,10 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import MainDetails from './MainDetails';
 import SecondaryDetails from './SecondaryDetails';
 
-const CurrentWeather = () => (
-  <Grid container direction="row" xs={12}>
-    <MainDetails />
-    <SecondaryDetails />
+const CurrentWeather = ({ currentWeatherData }) => (
+  <Grid container direction="row">
+    <MainDetails data={currentWeatherData}/>
+    <SecondaryDetails data={currentWeatherData} />
   </Grid>
 );
 

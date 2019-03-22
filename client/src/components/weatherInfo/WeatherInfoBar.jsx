@@ -14,18 +14,22 @@ const styles = {
   },
 };
 
-const renderFillings = () => {
-  return [...Array(60).keys()].map(minute => {
-    return (
-      <Filling minute={minute + 1}/>
-    )}
+const renderFillings = (weatherData, range) => {
+  return weatherData.data.map((timeMeasurement, index) => (
+      <Filling
+        data={timeMeasurement}
+        summary={weatherData.summary}
+        index={index + 1}
+        range={range}
+      />
+    )
   );
 };
 
-const WeatherInfoBar = ({ classes }) => {
+const WeatherInfoBar = ({ classes, weatherData, range }) => {
   return (
       <div className={classes.bar} >
-        {renderFillings()}
+        {renderFillings(weatherData, range)}
       </div>
   );
 };

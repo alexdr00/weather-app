@@ -6,6 +6,7 @@ import { blueGrey } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/core';
 
 import { AcUnit, FilterVintage, Star } from '@material-ui/icons';
+import fahrenheitToCelsius from '../lib/fahrenheitToCelsius';
 
 
 const styles = {
@@ -21,20 +22,27 @@ const styles = {
 };
 
 
-const MainDetails = ({ classes }) => (
-  <Grid container direction="row" md={6} className={classes.mainDetails}>
-    {/*Big Icon*/}
-    <MainIcon icon="partly_cloudy_day" className={classes.mainIcon}/>
+const MainDetails = ({ classes, data }) => {
+  const { summary, temperature, apparentTemperature, icon } = data;
+  const temperatureInCelsius = fahrenheitToCelsius(temperature);
+  const feelLikeInCelsius = fahrenheitToCelsius(apparentTemperature);
 
-    {/* Details group*/}
-    <Grid container alignItems="center" direction="column">
-      <Grid item direction="column" alignItems="flex-start">
-        <Detail detailTitle="Summary" detailValue="Clear" icon={Star}/>
-        <Detail detailTitle="Temperature" detailValue="54" icon={AcUnit}/>
-        <Detail detailTitle="Feels Like" detailValue="54" icon={FilterVintage}/>
+
+  return (
+    <Grid container direction="row" md={6} className={classes.mainDetails}>
+      {/*Big Icon*/}
+      <MainIcon icon={icon} className={classes.mainIcon}/>
+
+      {/* Details group*/}
+      <Grid container alignItems="center" direction="column">
+        <Grid item direction="column" alignItems="flex-start">
+          <Detail detailTitle="Summary" detailValue={summary} icon={Star}/>
+          <Detail detailTitle="Temperature" detailValue={temperatureInCelsius} icon={AcUnit}/>
+          <Detail detailTitle="Feels Like" detailValue={feelLikeInCelsius} icon={FilterVintage}/>
+        </Grid>
       </Grid>
     </Grid>
-  </Grid>
-);
+  );
+};
 
 export default withStyles(styles)(MainDetails);

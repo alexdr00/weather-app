@@ -27,7 +27,6 @@ class SearchContainer extends Component {
 
   handleChange = (event) => {
     const value = event.target.value;
-    console.log('changed', value);
 
     this.setState({ query: value })
   };

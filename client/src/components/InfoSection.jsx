@@ -25,33 +25,45 @@ const styles = {
   }
 };
 
-const InfoSection = ({ classes }) => (
-  <div className={classes.root}>
-    <Grid className={classes.grid}>
-      <SectionHeading>Current Weather</SectionHeading>
+const renderMinutely = (classes, minutely) => {
+  if (minutely) {
+    return (
+      <Grid className={classes.grid} style={{ overflowY: 'auto' }}>
+        <SectionHeading>Weather in the next hour (per minute)</SectionHeading>
 
-      <CurrentWeather/>
-    </Grid>
+        <WeatherInfoBar weatherData={minutely} range="minutely"/>
+      </Grid>
+    );
+  }
+};
 
-    <Grid className={classes.grid} style={{ overflowY: 'auto' }}>
-      <SectionHeading>Weather in the next hour (per minute)</SectionHeading>
+const InfoSection = ({ classes, weatherData }) => {
+  const { currently, minutely, hourly, daily } = weatherData;
 
-      <WeatherInfoBar />
-    </Grid>
+  return (
+    <div className={classes.root}>
+      <Grid className={classes.grid}>
+        <SectionHeading>Current Weather</SectionHeading>
 
-    <Grid className={classes.grid} style={{ overflowY: 'auto' }}>
-      <SectionHeading>Weather during the next 2 days (per hour)</SectionHeading>
+        <CurrentWeather currentWeatherData={currently}/>
+      </Grid>
 
-      <WeatherInfoBar />
-    </Grid>
+      {renderMinutely(classes, minutely)}
 
-    <Grid className={classes.grid} style={{ overflowY: 'auto' }}>
-      <SectionHeading>Weather during the week (per day)</SectionHeading>
+      <Grid className={classes.grid} style={{ overflowY: 'auto' }}>
+        <SectionHeading>Weather during the next 2 days (per hour)</SectionHeading>
 
-      <WeatherInfoBar />
-    </Grid>
-  </div>
-);
+        <WeatherInfoBar weatherData={hourly} />
+      </Grid>
+
+      <Grid className={classes.grid} style={{ overflowY: 'auto' }}>
+        <SectionHeading>Weather during the week (per day)</SectionHeading>
+
+        <WeatherInfoBar weatherData={daily} range="daily" />
+      </Grid>
+    </div>
+  );
+};
 
 export default withStyles(styles)(InfoSection);
 
