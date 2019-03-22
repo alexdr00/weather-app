@@ -17,7 +17,6 @@ const SearchInput = ({ classes, value, onChange }) => (
   <TextField
     className={classes.root}
     value={value}
-    defaultValue="color"
     label="City"
     onChange={onChange}
     variant="outlined"

@@ -5,10 +5,14 @@ import { withStyles } from '@material-ui/core';
 import { blueGrey } from '@material-ui/core/colors';
 import SectionHeading from './weatherInfo/SectionHeading';
 import WeatherInfoBar from './weatherInfo/WeatherInfoBar';
+import Map from './Map';
 
 const styles = {
   root: {
     width: '80%',
+    '@media (max-width: 712px)': {
+      width: '100%'
+    }
   },
 
   grid: {
@@ -17,11 +21,17 @@ const styles = {
     width: '100%',
     padding: 20,
     borderRadius: 5,
+
   },
 
   heading: {
     textAlign: 'center',
     fontSize: '1.5rem'
+  },
+
+  warning: {
+    fontSize: '1rem',
+    fontWeight: 500,
   }
 };
 
@@ -29,7 +39,11 @@ const renderMinutely = (classes, minutely) => {
   if (minutely) {
     return (
       <Grid className={classes.grid} style={{ overflowY: 'auto' }}>
-        <SectionHeading>Weather in the next hour (per minute)</SectionHeading>
+        <SectionHeading>
+          <br/>
+          Weather in the next hour (per minute)
+          <span className={classes.warning}>Click on any day/hour/minute to se more details</span>
+        </SectionHeading>
 
         <WeatherInfoBar weatherData={minutely} range="minutely"/>
       </Grid>
@@ -38,7 +52,7 @@ const renderMinutely = (classes, minutely) => {
 };
 
 const InfoSection = ({ classes, weatherData }) => {
-  const { currently, minutely, hourly, daily } = weatherData;
+  const { currently, minutely, hourly, daily, latitude, longitude } = weatherData;
 
   return (
     <div className={classes.root}>
@@ -51,15 +65,38 @@ const InfoSection = ({ classes, weatherData }) => {
       {renderMinutely(classes, minutely)}
 
       <Grid className={classes.grid} style={{ overflowY: 'auto' }}>
-        <SectionHeading>Weather during the next 2 days (per hour)</SectionHeading>
+        <SectionHeading>
+          Weather during the next 2 days (per hour)
+          <br/>
+          <span className={classes.warning}>Click on any day/hour/minute to se more details</span>
+        </SectionHeading>
 
-        <WeatherInfoBar weatherData={hourly} />
+        <WeatherInfoBar weatherData={hourly}/>
       </Grid>
 
       <Grid className={classes.grid} style={{ overflowY: 'auto' }}>
-        <SectionHeading>Weather during the week (per day)</SectionHeading>
+        <SectionHeading>
+          Weather during the week (per day)
+          <br/>
+          <span className={classes.warning}>Click on any day/hour/minute to se more details</span>
+        </SectionHeading>
 
-        <WeatherInfoBar weatherData={daily} range="daily" />
+        <WeatherInfoBar weatherData={daily} range="daily"/>
+      </Grid>
+
+      <Grid
+        className={classes.grid}
+        direction="column"
+        container
+        justify="center"
+        alignItems="center"
+        style={{ overflow: 'auto' }}
+      >
+        <SectionHeading>
+          Map where the city is located
+        </SectionHeading>
+
+        <Map latitude={latitude} longitude={longitude}/>
       </Grid>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core';
-import { purple, indigo, deepOrange, teal } from '@material-ui/core/colors';
+import { indigo, deepOrange, teal } from '@material-ui/core/colors';
 import { Tooltip } from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import minutelyTooltip from './tooltips/minutelyTooltip';
@@ -90,7 +90,7 @@ class Filling extends Component {
 
     const tooltip = this.renderProperTooltip(range);
     const isRangeLarge = range === 'daily';
-    console.log(data);
+
     const color = this.renderProperColor(
       data.temperature || data.temperatureLow || 20, classes
     );
@@ -101,7 +101,6 @@ class Filling extends Component {
           title={tooltip(classes, data, summary)}
           placement="bottom"
           open={showTooltip}
-          onClose={this.handleClose}
         >
           <div
             className={cn(

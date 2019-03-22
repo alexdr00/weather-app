@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import Skycons from 'react-skycons';
 
 const MainIcon = ({ icon, className }) => {
-  const iconString = icon.toUpperCase().replace('-', '_');
+  const iconString = icon.toUpperCase().replace(/-/g, '_');
 
   return (
     <Grid item className={className}>

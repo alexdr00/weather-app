@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import Filling from './Filling';
-import { purple } from '@material-ui/core/colors';
 
 const styles = {
   bar: {
@@ -16,6 +15,7 @@ const styles = {
 const renderFillings = (weatherData, range) => {
   return weatherData.data.map((timeMeasurement, index) => (
       <Filling
+        key={index}
         data={timeMeasurement}
         summary={weatherData.summary}
         index={index + 1}
