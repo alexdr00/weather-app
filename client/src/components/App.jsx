@@ -1,7 +1,11 @@
 import React from 'react';
+import ApplicationBar from './ApplicationBar';
+
 
 const App = ({ children }) => (
-  <div>
+  <div style={{ fontFamily: 'Roboto' }}>
+    <ApplicationBar/>
+
     {children}
   </div>
 );

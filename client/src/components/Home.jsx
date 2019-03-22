@@ -3,16 +3,12 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchCityContainer from './searchCityForm/SearchContainer';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
-import WeatherInfoContainer from './weatherInfoBars/WeatherInfoContainer';
 import InfoSection from './InfoSection'
 
 
 const styles = {
-  root: {
-    minHeight: '100vh',
-  },
   searchCityGrid: {
-    width: '70%', marginTop: 50
+    width: '30%', marginTop: 100
   }
 };
 
@@ -32,7 +28,8 @@ class Home extends Component {
   renderInfoSection = () => {
     const { weatherData } = this.state;
 
-    if (Object.keys(weatherData).length !== 0) {
+    // Object.keys(weatherData).length !== 0
+    if (true) {
       return <InfoSection />
     }
   };

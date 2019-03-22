@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SearchInput from './SearchInput';
 import SearchButton from './SearchButton';
 import { withStyles } from '@material-ui/core';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 const styles = {
   root: {
@@ -10,6 +10,10 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
   },
+
+  button: {
+    marginLeft: 20,
+  }
 };
 
 class SearchContainer extends Component {
@@ -33,9 +37,9 @@ class SearchContainer extends Component {
     const { query } = this.state;
 
     return (
-      <div className={classNames(className, classes.root)}>
+      <div className={cn(className, classes.root)}>
         <SearchInput value={query} onChange={this.handleChange} />
-        <SearchButton onSubmit={this.handleSubmit}/>
+        <SearchButton onSubmit={this.handleSubmit} className={classes.button} />
       </div>
 
     );

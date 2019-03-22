@@ -5,15 +5,22 @@ import { withStyles } from '@material-ui/core';
 const styles = {
   root: {
     flexGrow: 1,
+    textAlign: 'center',
   },
+
+  input: {
+    color: 'red'
+  }
 };
 
 const SearchInput = ({ classes, value, onChange }) => (
   <TextField
     className={classes.root}
-    placeholder="Type a city!"
     value={value}
+    defaultValue="color"
+    label="City"
     onChange={onChange}
+    variant="outlined"
   />
 );
 
