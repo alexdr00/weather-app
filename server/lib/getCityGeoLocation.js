@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const getCityGeoLocation = (city) => {
   const mapboxBaseUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
-  const mapboxToken = process.env.MAPBOX_TOKEN;
+  const mapboxToken = 'pk.eyJ1IjoiamdhdmlyMjMiLCJhIjoiY2pwMzMwanYwMDJkeTNwcDduODR5bXRlayJ9.p_HLVm6sK-X0d5-JIpSdxA';
 
   const mapboxFullUrl = `${mapboxBaseUrl}/${city}.json?access_token=${mapboxToken}`;
 
