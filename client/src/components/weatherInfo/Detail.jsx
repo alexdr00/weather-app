@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
-// import DetailIcon from './DetailIcon';
 
 
 const styles = {
