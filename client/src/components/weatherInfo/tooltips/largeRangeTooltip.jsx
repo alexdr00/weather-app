@@ -2,9 +2,12 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import Detail from '../Detail';
 import { AcUnit, BeachAccess, FlashOn, Star, WbCloudy } from '@material-ui/icons';
+import fahrenheitToCelsius from '../../lib/fahrenheitToCelsius';
 
 
 export default (classes, data, summary) => {
+  const temperature = fahrenheitToCelsius(data.temperature || data.temperatureLow);
+
   return (
     <Grid container alignItems="center" justify="center" className={classes.tooltip}>
       <Grid item>
@@ -16,7 +19,7 @@ export default (classes, data, summary) => {
 
         <Detail
           detailTitle="Temperature"
-          detailValue={data.temperature}
+          detailValue={temperature}
           icon={AcUnit}
         />
 

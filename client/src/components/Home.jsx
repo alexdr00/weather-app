@@ -8,7 +8,7 @@ import InfoSection from './InfoSection'
 
 const styles = {
   searchCityGrid: {
-    width: '30%', marginTop: 100
+    width: '80%', marginTop: 100
   }
 };
 
@@ -40,7 +40,6 @@ class Home extends Component {
       <div className={classes.root}>
         <Grid
           container
-          spacing={24}
           direction="column"
           justify="center"
           alignItems="center"

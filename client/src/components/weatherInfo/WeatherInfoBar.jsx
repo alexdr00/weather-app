@@ -9,7 +9,6 @@ const styles = {
     minWidth: '100%',
     height: 90,
     borderRadius: 20,
-    backgroundColor: purple[300],
     overflowY: 'auto'
   },
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core';
-import { purple } from '@material-ui/core/colors';
-import { Tooltip, Grid } from '@material-ui/core';
+import { purple, indigo, deepOrange, teal } from '@material-ui/core/colors';
+import { Tooltip } from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import minutelyTooltip from './tooltips/minutelyTooltip';
 import largeRangeTooltip from './tooltips/largeRangeTooltip';
@@ -11,19 +11,29 @@ import cn from 'classnames';
 const styles = {
   filling: {
     position: 'relative',
-    backgroundColor: purple[600],
     display: 'inline-block',
     minWidth: '40px',
     height: '100%',
-    marginRight: '1px',
     cursor: 'pointer'
+  },
+
+  fillingCold: {
+    backgroundColor: indigo[500],
+  },
+
+  fillingHot: {
+    backgroundColor: deepOrange[500],
+  },
+
+  fillingAverage: {
+    backgroundColor: teal[400],
   },
 
   largeFilling: {
     minWidth: '14.28571%',
   },
 
-  minute: {
+  timeMeasurement: {
     position: 'absolute',
     left: '50%',
     top: '50%',
@@ -34,7 +44,7 @@ const styles = {
 
   tooltip: {
     width: 300,
-    height: 400,
+    height: 300,
     lineHeight: '1.6rem',
     backgroundColor: '#fff',
     color: '#000',
@@ -42,7 +52,6 @@ const styles = {
     fontSize: '1.2rem',
     borderRadius: 10
   }
-
 };
 
 
@@ -55,6 +64,16 @@ class Filling extends Component {
 
   handleClose = () => {
     this.setState({ showTooltip: false })
+  };
+
+  renderProperColor = (temperature, classes) => {
+    if (temperature > 86) {
+      return classes.fillingHot
+    } else if (temperature < 59) {
+      return classes.fillingCold
+    } else {
+      return classes.fillingAverage
+    }
   };
 
   renderProperTooltip = (range) => {
@@ -71,20 +90,30 @@ class Filling extends Component {
 
     const tooltip = this.renderProperTooltip(range);
     const isRangeLarge = range === 'daily';
+    console.log(data);
+    const color = this.renderProperColor(
+      data.temperature || data.temperatureLow || 20, classes
+    );
 
     return (
       <ClickAwayListener onClickAway={this.handleClose}>
         <Tooltip
           title={tooltip(classes, data, summary)}
-          placement="top"
+          placement="bottom"
           open={showTooltip}
           onClose={this.handleClose}
         >
           <div
-            className={cn(classes.filling, { [classes.largeFilling]: isRangeLarge })}
+            className={cn(
+              classes.filling,
+              color,
+              { [classes.largeFilling]: isRangeLarge },
+              )
+            }
+            color="cold"
             onClick={this.handleClick}
           >
-            <span className={classes.minute}>{index}</span>
+            <span className={classes.timeMeasurement}>{index}</span>
           </div>
         </Tooltip>
       </ClickAwayListener>

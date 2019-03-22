@@ -16,7 +16,7 @@ const styles = {
     backgroundColor: blueGrey[50],
     width: '100%',
     padding: 20,
-    borderRadius: 5
+    borderRadius: 5,
   },
 
   heading: {

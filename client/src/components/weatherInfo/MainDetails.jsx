@@ -11,7 +11,11 @@ import fahrenheitToCelsius from '../lib/fahrenheitToCelsius';
 
 const styles = {
   mainDetails: {
-    borderRight: `2px solid ${blueGrey[300]}`
+    borderRight: `2px solid ${blueGrey[300]}`,
+    '@media (max-width: 959px)': {
+      marginBottom: 30,
+      borderRight: 0,
+    }
   },
 
   mainIcon: {
